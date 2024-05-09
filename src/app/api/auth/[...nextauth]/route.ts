@@ -1,34 +1,12 @@
 import NextAuth, { AuthOptions } from "next-auth";
-import Twitch from "next-auth/providers/twitch";
+import TwitchProvider from "next-auth/providers/twitch";
 
 export const authOptions: AuthOptions = {
-  secret: "secret",
+  secret: "MXsqeQSZqvht5RE6U7Sg/EqtgKKctiyNm5qA0GoS/HM=",
   providers: [
-    Twitch({
+    TwitchProvider({
       clientId: process.env.NEXT_PUBLIC_TWITCH_CLIENT_ID || "",
       clientSecret: process.env.NEXT_PUBLIC_TWITCH_CLIENT_SECRET || "",
-      authorization: {
-        params: {
-          redirect_uri: 'http://localhost:3000/',
-          scope: "openid user:read:email",
-          claims: {
-            id_token: {
-              email: null,
-              picture: null,
-              preferred_username: null,
-            },
-          },
-        },
-      },
-      idToken: true,
-    profile(profile) {
-      return {
-        id: profile.sub,
-        name: profile.preferred_username,
-        email: profile.email,
-        image: profile.picture,
-      }
-    },
     }),
   ],
   callbacks: {
